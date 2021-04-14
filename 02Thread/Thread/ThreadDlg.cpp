@@ -231,7 +231,16 @@ void CThreadDlg::OnBnClickedButton5()
 void CThreadDlg::OnBnClickedButton6()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	//结束线程
+	//1.正常退出
 	m_bFlag = false;
+	//2.判断线程是否退出，如果不能，则强制退出
+	//线程的信号为无信号
+	if (WAIT_TIMEOUT == WaitForSingleObject(m_hThread,200))
+	{
+		TerminateThread(m_hThread,-1);
+	}
+
 	if (m_hThread)
 	{
 		CloseHandle(m_hThread);
